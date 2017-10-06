@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-import {FirebaseListObservable} from 'angularfire2/database-deprecated';
 import {FormControl, FormGroup} from '@angular/forms';
+import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import {IMessage} from '../message';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-message-form',
@@ -10,22 +11,27 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class MessageFormComponent implements OnInit {
 
-  ref: AngularFireList<string>;
+  ref: AngularFireList<IMessage>;
 
-  form: FormGroup = new FormGroup({
-    text: new FormControl('')
+  messageForm = new FormGroup({
+    message: new FormControl()
   });
 
-  constructor(private repo: AngularFireDatabase) {
-    this.ref = this.repo.list('chattest1');
-
+  constructor(private fb: AngularFireDatabase) {
+    this.ref = this.fb.list('messages');
   }
 
   ngOnInit() {
+    this.messageForm.get('message')
+      .valueChanges
+      .debounceTime(500)
+      .subscribe(val => console.log(val));
   }
 
-  submit() {
-    this.ref.push(this.form.get('text').value);
+  submitForm() {
+    this.ref.push({
+      text: this.messageForm.get('message').value
+    });
   }
 
 }

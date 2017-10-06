@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {ChannelComponent} from './channel.component';
 import {MessageFormComponent} from './message-form/message-form.component';
-import {ChannelComponent} from './channel/channel.component';
-import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {MessageListComponent} from './message-list/message-list.component';
+import {ReactiveFormsModule} from '@angular/forms';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../../environments/environment';
-import {MessagesComponent} from './messages/messages.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     AngularFireDatabaseModule
   ],
   exports: [ChannelComponent],
-  declarations: [MessageFormComponent, ChannelComponent, MessagesComponent]
+  declarations: [ChannelComponent, MessageFormComponent, MessageListComponent]
 })
 export class ChannelModule {
 }
