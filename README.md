@@ -25,6 +25,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     2.1. no new form inputs required, but send user name and current date stamp to FireBase
     
     2.2. Output user name and date in the message-list component. Design is up to you. worst case just output them one by one as in rocket chat. 
+          !!! Please take into accont, that AngularFire converted date to ISO string, therefore you need to revert it back to date in the mapping function on message list subscriber. to get a valid date from ISO string just pass it to the Date 
+          function as `msg.date = new Date(msg.date)`
     
 3. For a LevelUp!
 
