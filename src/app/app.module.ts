@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {ChannelModule} from './channel/channel.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +10,6 @@ import {ChannelModule} from './channel/channel.module';
   ],
   imports: [
     BrowserModule,
-    ChannelModule,
     AppRoutingModule
   ],
   providers: [],
