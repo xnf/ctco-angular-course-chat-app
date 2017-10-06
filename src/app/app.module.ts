@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ChannelModule} from './channel/channel.module';
+import {SharedModule} from './shared/shared.module';
+import {UserService} from './shared/user.service';
 
 @NgModule({
   declarations: [
@@ -12,9 +14,10 @@ import {ChannelModule} from './channel/channel.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ChannelModule
+    ChannelModule,
+    SharedModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
