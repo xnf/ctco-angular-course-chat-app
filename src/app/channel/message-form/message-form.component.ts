@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {IMessage} from '../message';
@@ -13,13 +13,14 @@ import {UserService} from '../../shared/user.service';
 export class MessageFormComponent implements OnInit {
 
   ref: AngularFireList<IMessage>;
+  @Input() channelId;
 
   messageForm = new FormGroup({
     message: new FormControl()
   });
 
   constructor(private fb: AngularFireDatabase, private userService: UserService) {
-    this.ref = this.fb.list('messages');
+    this.ref = this.fb.list('messages-' + this.channelId);
   }
 
   ngOnInit() {

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
 
 @Component({
   selector: 'app-channel',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChannelComponent implements OnInit {
 
-  constructor() { }
+  channelId: string;
+
+  constructor(private router: Router,
+              private route: ActivatedRoute) {
+    this.router.events.subscribe((event) => {
+      console.log(event);
+    });
+    this.route.params.subscribe(params => this.channelId = params.id);
+  }
 
   ngOnInit() {
   }

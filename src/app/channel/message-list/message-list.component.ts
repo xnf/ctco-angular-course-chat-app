@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentChecked, Component, Input, OnInit} from '@angular/core';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {IMessage} from '../message';
 import {Observable} from 'rxjs/Observable';
@@ -11,14 +11,25 @@ import * as firebase from 'firebase';
   templateUrl: './message-list.component.html',
   styleUrls: ['./message-list.component.scss']
 })
-export class MessageListComponent implements OnInit {
+export class MessageListComponent implements OnInit, AfterContentChecked {
 
   ref: AngularFireList<IMessage>;
   messages$: Observable<IMessage[]>;
   messages: IMessage[] = [];
+  @Input() channelId;
 
   constructor(private fb: AngularFireDatabase) {
-    this.ref = this.fb.list('messages');
+    this.ref = this.fb.list('messages-' + this.channelId);
+    this.messages$ = this.ref.valueChanges<IMessage>();
+    this.messages$
+      .flatMap(arr => Observable.from(arr))
+      .subscribe((msg: IMessage) => {
+        this.messages.unshift(msg);
+      });
+  }
+
+  ngAfterContentChecked(){
+    this.ref = this.fb.list('messages-' + this.channelId);
     this.messages$ = this.ref.valueChanges<IMessage>();
     this.messages$
       .flatMap(arr => Observable.from(arr))
