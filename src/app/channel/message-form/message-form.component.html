@@ -1,7 +1,10 @@
 <form [formGroup]="messageForm" (submit)="submitForm()">
   <div class="input-group">
-    <input [formControlName]="'message'" type="text" class="form-control" name="text" placeholder="Message">
+    <input required [formControlName]="'message'" type="text" class="form-control" name="text" placeholder="Message">
     <span class="input-group-btn">
-      <button class="btn btn-success" type="submit">Send</button>
+      <button class="btn btn-success" type="submit" [disabled]="messageForm.invalid||isSendingMessage">
+        <span *ngIf="!isSendingMessage">Send</span>
+        <span *ngIf="isSendingMessage">Sending</span>
+      </button>
     </span></div>
 </form>

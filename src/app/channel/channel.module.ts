@@ -8,6 +8,7 @@ import {AngularFireModule} from 'angularfire2';
 import {environment} from '../../environments/environment';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { ListComponent } from './list/list.component';
+import {ChannelService} from './channel.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { ListComponent } from './list/list.component';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule
+  ],
+  providers: [
+    ChannelService
   ],
   exports: [ChannelComponent],
   declarations: [ChannelComponent, MessageFormComponent, MessageListComponent, ListComponent]

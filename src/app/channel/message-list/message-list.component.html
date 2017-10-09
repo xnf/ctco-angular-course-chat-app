@@ -1,12 +1,10 @@
 <div class="panel panel-default"
-     *ngFor="let message of messages">
+     *ngFor="let message of channelService.getMessages()">
   <div class="panel-body">
     <div class="row">
-      <div class="col-sm-1">
+      <div class="col-sm-3">
+        <strong>{{message.name}}</strong><br>
         <small *ngIf="message.date>0">{{message.date|date:'shortTime'}}</small>
-      </div>
-      <div class="col-sm-2">
-        <strong>{{message.name}}</strong>
       </div>
       <div class="col-sm-9"> {{message.text}}</div>
     </div>

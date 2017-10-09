@@ -1,3 +1,11 @@
-<h1>{{channelId}}</h1>
-<app-message-form [channelId]="channelId"></app-message-form>
-<app-message-list [channelId]="channelId"></app-message-list>
+
+<div class="row">
+  <div class="col-sm-2">
+    <app-list></app-list>
+  </div>
+  <div class="col-sm-10">
+    <h1>#{{channelId}}</h1>
+    <app-message-form></app-message-form>
+    <app-message-list></app-message-list>
+  </div>
+</div>

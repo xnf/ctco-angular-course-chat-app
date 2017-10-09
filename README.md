@@ -10,31 +10,27 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Homework Assignment
 
-1. Let's know who you are! 
+1.  The app-list component (already created in channel/list) should output a list of channels with links where cliking would open the channel
 
-    1.1 There is User component, User service and User interface in "shared" foldet
-
-    1.2. During ngOnInit Check for user name in `window.localStorage.getItem('name')` and if nothing found, ask for user name using `window.prompt()` function.
+    1.1. channels are now children of 'messages' list. each child is one channel.
     
-    1.3. Store the response from `window.prompt()` back in the localStorage using `setItem`
-    
-    1.4. If everything is fine then after page load and/or user entering the name it should appear in the view above app-channel
+    1.2. yes, it is expensive to "subscribe" to whole collection, but this is homework. If you want to do it better, check the "level up" section lower.
 
-2. IMessage interface has been updated with properties `name` and `date`
+    1.3. Active channel on the left side should be somehow identified. Use routerLinkActive directive to assign a class and add some distinctive style yourself to the component's .scss file
 
-    2.1. no new form inputs required, but send user name and current date stamp to FireBase
-    
-    2.2. Output user name and date in the message-list component. Design is up to you. worst case just output them one by one as in rocket chat. 
-          !!! Please take into accont, that AngularFire converted date to ISO string, therefore you need to revert it back to date in the mapping function on message list subscriber. to get a valid date from ISO string just pass it to the Date 
-          function as `msg.date = new Date(msg.date)`
-    
-3. For a LevelUp!
+2. in home.component.ts there is a method to create new channel. 
 
-    3.1. Message FormControl now has Validate.required. Make "send" disabled if form is not valid. There are at least two ways to do it - from class and from template  
-
-    3.2. Figure out a way (there exists at least dozen of them, basically there is no right answer) to reverse list (unshift instead of push, sort by date desc, pipe that reverses array, use AngularFire API, etc)
+    1.1 Add a code that would create a new channel with "hello" message
     
-    3.2. After sending - Reset form without making new FormGroup
+    1.2 After the adding, please redirect user (using `navigateTo` from the `Router`) to this new channel so he would see the "hello world" message
+
+3. For the "Level Up"
+
+    3.1. Add own service for managing the list of channels. 
+    
+    3.2. Add the channel name to your own FireBase list (prefix it with your initials, for example)
+    
+    3.3. Output list of channels from your list. 
 
 ## Development server
 

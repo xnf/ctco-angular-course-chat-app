@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {IMessage} from '../message';
 import 'rxjs/add/operator/debounceTime';
 import {UserService} from '../../shared/user.service';
+import {ChannelService} from '../channel.service';
 
 @Component({
   selector: 'app-message-form',
@@ -12,15 +13,13 @@ import {UserService} from '../../shared/user.service';
 })
 export class MessageFormComponent implements OnInit {
 
-  ref: AngularFireList<IMessage>;
-  @Input() channelId;
-
+  isSendingMessage: boolean;
   messageForm = new FormGroup({
-    message: new FormControl()
+    message: new FormControl('', [Validators.required])
   });
 
-  constructor(private fb: AngularFireDatabase, private userService: UserService) {
-    this.ref = this.fb.list('messages-' + this.channelId);
+  constructor(private channelService: ChannelService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -31,11 +30,9 @@ export class MessageFormComponent implements OnInit {
   }
 
   submitForm() {
-    this.ref.push({
-      date: +(new Date()),
-      name: this.userService.info.name,
-      text: this.messageForm.get('message').value
-    });
+    this.isSendingMessage = true;
+    this.channelService.postMessage(this.messageForm.get('message').value)
+      .then(() => this.isSendingMessage = false);
   }
 
 }

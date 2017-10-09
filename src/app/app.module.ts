@@ -19,13 +19,7 @@ import {HomeComponent} from './home/home.component';
     BrowserModule,
     AppRoutingModule,
     ChannelModule,
-    SharedModule,
-    RouterModule.forRoot([
-      {path: '', component: HomeComponent},
-      {path: 'home', redirectTo: ''},
-      {path: 'channel', redirectTo: ''},
-      {path: 'channel/:id', component: ChannelComponent}
-    ])
+    SharedModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
