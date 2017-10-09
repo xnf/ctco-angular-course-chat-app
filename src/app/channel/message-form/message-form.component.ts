@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {IMessage} from '../message';
 import 'rxjs/add/operator/debounceTime';
+import {UserService} from '../../shared/user.service';
 
 @Component({
   selector: 'app-message-form',
@@ -17,7 +18,7 @@ export class MessageFormComponent implements OnInit {
     message: new FormControl()
   });
 
-  constructor(private fb: AngularFireDatabase) {
+  constructor(private fb: AngularFireDatabase, private userService: UserService) {
     this.ref = this.fb.list('messages');
   }
 
@@ -30,6 +31,8 @@ export class MessageFormComponent implements OnInit {
 
   submitForm() {
     this.ref.push({
+      date: +(new Date()),
+      name: this.userService.info.name,
       text: this.messageForm.get('message').value
     });
   }

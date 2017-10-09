@@ -4,6 +4,7 @@ import {IMessage} from '../message';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/from';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-message-list',
@@ -18,11 +19,11 @@ export class MessageListComponent implements OnInit {
 
   constructor(private fb: AngularFireDatabase) {
     this.ref = this.fb.list('messages');
-    this.messages$ = this.ref.valueChanges();
+    this.messages$ = this.ref.valueChanges<IMessage>();
     this.messages$
       .flatMap(arr => Observable.from(arr))
       .subscribe((msg: IMessage) => {
-        this.messages.push(msg);
+        this.messages.unshift(msg);
       });
   }
 

@@ -9,13 +9,14 @@ import {IUser} from '../user';
 })
 export class UserComponent implements OnInit {
 
-  user: IUser = {name: "User name from localStorage should appear here"};
+  get user(): IUser {
+    return this.userService.info;
+  }
 
   constructor(public userService: UserService) {
   }
 
   ngOnInit() {
-    // Check for user name or make new using window.prompt();
   }
 
   helloMyNameIs() {
